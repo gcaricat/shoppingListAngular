@@ -1,0 +1,106 @@
+<div class="row">
+  <div class="col-xs-12">
+    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-xs-12">
+          <button
+            type="submit"
+            class="btn btn-success"
+          [disabled]="!recipeForm.valid"
+          >Save</button>
+          <button
+            (click)="onCancel()"
+            type="submit"
+            class="btn btn-danger"
+          >Cancel</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              [formControlName]="'name'"
+              type="text"
+              id="name"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="imagePath">Image URL</label>
+            <input
+              formControlName="imagePath"
+              type="text"
+              id="imagePath"
+              class="form-control"
+              #imagePath
+            >
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <img [src]="imagePath.value" class="img-responsive">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea
+              formControlName="description"
+              type="description"
+              id="description"
+              class="form-control"
+              rows="6"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12"><h3>Ingredients</h3></div>
+        <div class="col-xs-12" formArrayName="ingredients">
+          <div
+            class="row mb15"
+            *ngFor="let ingredientCtrl of controls; let i = index"
+            [formGroupName]="i" >
+            <div class="col-xs-8">
+              <input
+                type="text"
+                class="form-control"
+                formControlName="name"
+              >
+            </div>
+            <div class="col-xs-2">
+              <input
+                type="number"
+                class="form-control"
+                formControlName="amount"
+              >
+            </div>
+            <div class="col-xs-2">
+              <button
+                type="button"
+
+                (click)="onDeleteIngredient(i)"
+                class="btn btn-danger">X</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <button
+            type="button"
+            class="btn btn-success"
+            (click)="onAddIngredient()"
+          >Add Ingredient</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
